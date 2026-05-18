@@ -1,6 +1,6 @@
 ---
 title: "Evidencia 1 | "
-author: "Valeria Ramos Lara A00844070, IDM. Andres Rodriguez Cantu A01287002, ITC"
+author: "Andres Rodriguez Cantu A01287002, ITC"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 bibliography: src/references.bib
 csl: src/apa.csl
@@ -15,8 +15,10 @@ output:
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(kableExtra)
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 ```
 
 ```{r, include=FALSE}
@@ -30,14 +32,14 @@ if (nzchar(rmd_path)) {
 }
 ```
 
-
-# Cargar df de datos 
-```{r}
-datosCalCOFI <- read.csv("data/raw/datosCalCOFI.csv")
+# PARTE I
+## 1. Las variables y datos
+```{r child='src/test.rmd'}
 ```
 
-# Include test.rmd test
-```{r child='src/test.rmd'}
+## 2. Comprensión inicial del fenómeno y definición del objetivo de indagación
+```{r}
+
 ```
 
 # Referencias
