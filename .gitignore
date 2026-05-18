@@ -1,0 +1,11 @@
+# Archivos output
+*.html
+*.pdf
+*.docx
+
+# Archivos cache
+.RData
+.Rhistory
+.Rproj.user/
+.rda
+.rds

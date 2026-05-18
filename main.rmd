@@ -1,0 +1,43 @@
+---
+title: "Evidencia 1 | "
+author: "Valeria Ramos Lara A00844070, IDM. Andres Rodriguez Cantu A01287002, ITC"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
+bibliography: src/references.bib
+csl: src/apa.csl
+link-citations: true
+knit: (function(input, encoding) rmarkdown::render(input, encoding = encoding, output_dir = "output", envir = new.env()))
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: journal
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(dplyr)
+library(tidyr)
+```
+
+```{r, include=FALSE}
+# Establece el wd al path en donde se esta knitteando el documento
+# Si se corre esto mientras no se esta knitteando, aparecera un error.
+rmd_path <- knitr::current_input()
+if (nzchar(rmd_path)) {
+  setwd(normalizePath(dirname(rmd_path)))
+} else if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+  setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+}
+```
+
+
+# Cargar df de datos 
+```{r}
+datosCalCOFI <- read.csv("data/raw/datosCalCOFI.csv")
+```
+
+# Include test.rmd test
+```{r child='src/test.rmd'}
+```
+
+# Referencias
