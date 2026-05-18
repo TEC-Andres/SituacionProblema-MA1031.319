@@ -34,7 +34,7 @@ if (nzchar(rmd_path)) {
 
 # PARTE I
 ## 1. Las variables y datos
-```{r child='src/test.rmd'}
+```{r child='src/inciso1.rmd'}
 ```
 
 ## 2. Comprensión inicial del fenómeno y definición del objetivo de indagación
