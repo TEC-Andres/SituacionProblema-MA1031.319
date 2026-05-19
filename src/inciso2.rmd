@@ -1,0 +1,79 @@
+
+### Comprensión inicial del fenómeno: 
+
+El programa CalCOFI (California Cooperative Oceanic Fisheries Investigations) es un programa de monitoreo oceanográfico creado en 1949 debido al colapso de la pesquería de sardina en la costa de California. En sí, el programa tuvo como objetivo estudiar y analizar las causas ambientales y biológicas que provocaron la disminución drástica de esta especie. 
+
+Sin embargo, en la actualidad, CalCOFI no solo estudia poblaciones pesqueras, sino también dinámicas físicas, químicas y biológicas del océano para poder analizar cómo estas variables ambientales afectan la biodiversidad marina, los ecosistemas y la disponibilidad de recursos pesqueros. El programa recopila información relacionada con el oxígeno, la temperatura, la salinidad, los nutrientes, la productividad biológica y la distribución espacial de las condiciones oceanográficas con el fin de comprender los efectos del cambio climático y las actividades humanas en los ecosistemas marinos. 
+
+La base de datos que utiliza este programa contiene 28,421 observaciones y 21 variables: variables físicas, químicas, espaciales y temporales. Entre ellas destacan mediciones de temperatura del agua, oxígeno disuelto, salinidad, nutrientes y clorofila, las cuales permiten estudiar patrones oceanográficos y posibles condiciones de estrés ambiental en distintas regiones del océano.
+
+### Exploración y clasificación de variables:
+
+Con apoyo del diccionario de variables y del análisis preliminar de la base de datos, se identificaron distintos tipos de variables asociadas a condiciones oceanográficas específicas. Entre estas variables, se delimitaron las siguientes: 
+
+#### Variables Físicas: 
+
+Estas variables describen propiedades relacionadas con el comportamiento y la estructura del agua del océano, las cuales son importantes debido a que influyen en la circulación oceánica, la estratificación del agua y las condiciones de habitabilidad de los organismos marinos.
+
+mean_T_degC: temperatura promedio del agua
+
+mean_Salnty: salinidad promedio
+
+Bottom_D: profundidad del fondo marino
+
+Water_density_class: clasificación de densidad del agua
+
+Depth_zone: categoría de profundidad
+
+#### Variables químicas: 
+
+Estas variables representan la composición y calidad química del agua. En sí, permiten analizar la disponibilidad de nutrientes y posibles condiciones de estrés ambiental o hipoxia que afectan de manera directa a la biodiversidad marina.
+
+mean_O2ml_L: oxígeno disuelto
+
+mean_O2Sat: saturación de oxígeno
+
+mean_NO2uM: concentración de nitritos
+
+mean_NO3uM: concentración de nitratos
+
+mean_PO4uM: concentración de fosfatos
+
+mean_SiO3uM: concentración de silicatos
+
+#### Variables biológicas: 
+
+Estas variables permiten estudiar la productividad y actividad fitoplanctónica, enfocándose más en la clorofila, la cual es utilizada como indicador de productividad primaria y abundancia de especies de fitoplancton, la cual es la base fundamental de las cadenas alimenticias marinas.
+
+mean_ChlorA: concentración promedio de clorofila
+
+IntChl: clorofila integrada
+
+mean_Phaeop: concentración de feopigmentos
+
+#### Variables espaciales y temporales: 
+
+Estas variables son necesarias para identificar patrones geográficos y cambios a través del tiempo. Estas permiten comparar zonas oceánicas y analizar variaciones estacionales/temporales en las condiciones ambientales.
+
+Distance: distancia respecto a la costa
+
+Lat_Dec: latitud
+
+Lon_Dec: longitud
+
+Year: año de muestreo
+
+Quarter: trimestre del año
+
+Dist_cat: categoría de distancia oceánica
+
+### Reflexión sobre biodiversidad y actividad pesquera: 
+
+Las variables relacionadas con temperatura, oxígeno disuelto y nutrientes se pueden asociar de manera directa con riesgos para la biodiversidad marina. Por ejemplo, una disminución en los niveles de oxígeno puede generar condiciones hipóxicas que terminan afectando la supervivencia de organismos marinos. Asimismo, variaciones extremas de temperatura pueden alterar migraciones, distribución de especies y ciclos reproductivos, generando como consecuencia desequilibrios ecológicos y modificaciones en las cadenas alimenticias. Además, cambios en la concentración de nutrientes pueden provocar alteraciones en la productividad fitoplanctónica, afectando la disponibilidad de alimento para distintas especies y modificando la dinámica natural de los ecosistemas oceánicos. 
+
+De igual manera, variables como clorofila, nitratos y temperatura tienen implicaciones significativas para la actividad pesquera, ya que influyen en la productividad biológica del océano y en la disponibilidad de alimento para especies comerciales. Históricamente, cambios ambientales de este tipo estuvieron relacionados con las fluctuaciones y colapsos de poblaciones de sardina que dieron origen al programa CalCOFI, mencionado previamente. 
+
+### Objetivo de indagación:
+
+El objetivo de indagación para esta situación problema es el siguiente: Analizar cómo varían el oxígeno disuelto, la saturación de oxígeno, la temperatura, la salinidad y la concentración de nutrientes en función de la profundidad y la distancia a la costa, con el propósito de identificar patrones ambientales asociados a posibles condiciones de estrés ecológico y cambios en la productividad biológica marina. Esto permitirá comprender cómo las variaciones oceanográficas podrían relacionarse con riesgos ambientales y posibles afectaciones en la biodiversidad marina.
+Este análisis resulta relevante en un contexto de sustentabilidad, dado que cambios en estas condiciones afectan directamente la disponibilidad de recursos pesqueros y la salud de los ecosistemas marinos.

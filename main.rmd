@@ -6,6 +6,8 @@ bibliography: src/references.bib
 csl: src/apa.csl
 link-citations: true
 knit: (function(input, encoding) rmarkdown::render(input, encoding = encoding, output_dir = "output", envir = new.env()))
+
+
 output:
  html_document:
   toc: true
@@ -17,8 +19,8 @@ output:
 library(knitr)
 library(kableExtra)
 library(dplyr)
-library(tidyr)
 library(stringr)
+library(tidyr)
 library(ggplot2)
 ```
 
@@ -34,7 +36,7 @@ if (nzchar(rmd_path)) {
 ```
 
 # PARTE I
-## 1. Las variables y datos
+## 1. Las variables y datos t
 ```{r child='src/inciso1.rmd'}
 ```
 
