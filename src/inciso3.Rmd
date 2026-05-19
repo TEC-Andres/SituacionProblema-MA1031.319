@@ -1,0 +1,36 @@
+Las variables que se utilizaran para este analisis seran las siguientes:
+```{r, echo=FALSE}
+tablaFigura <- data.frame(
+  "Variable" = c("mean_O2ml_L", "mean_O2Sat", "mean_T_degC", "mean_Salnty", "mean_ChlorA",
+                 "Distance", "Depth_zone", "Water_denisty_class"),
+  "Tipo de Variable" = c("Cuantitativa", "Cuantitativa", "Cuantitativa", "Cuantitativa", "Cuantitativa",
+                         "Cuantitativa", "Categórica", "Categórica"),
+  "Justificación" = c("Saber el promedio de cuánto oxígeno una zona ambiental marina contiene refleja directamente el tipo de ambiente en el que dichas especies viven.",
+                      "La saturación del oxígeno nos permite evaluar la cantidad de oxígeno que la fauna tiene a disponibilidad.",
+                      "La temperatura cambia el comportamiento de la fauna; alterando su metabolismo, horarios cuando estos van a cazar, si van a procrear, etc...",
+                      "Checar el cambio de salinidad en las aguas nos permite saber sobre el desplazamiento de ciertas especies; apoyando al cambio parcial o total de un ecosistema.",
+                      "Conocer la cantidad de clorofila en el ecosistema nos permite saber que tipo de ambientes son más probables de prosperar; siendo los ambientes con las clorofila los que más materia orgánica poseen, haciendo que pueda crecer la cadena alimenticia en el ambiente.",
+                      "Nos permite comparar distintos ambientes en tamaños. Mientras más grande sea la distancia, el ambiente generalmente es más tranquilo, pero más difícil de que la fauna pueda prosperar.",
+                      "Conocer qué tan profunda es la zona nos permite caracterizar a los tipos de especies que residen en dichas zonas; conocer este dato de manera categórica nos permite clasificar mejor el hábitat en donde ciertas especies viven.",
+                      "Similar a la profundidad, conociendo la densidad del agua, podemos saltar a conclusiones acerca de cómo el ecosistema vive. Por ejemplo, que mientras más densa sea el agua, la población de la fauna suele decrecer."
+                      )
+)
+
+# Tabla
+tablaFigura %>%
+  kable(
+    format = "html", 
+    caption = "Variables",
+    escape = FALSE
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"), 
+    full_width = FALSE
+  ) %>%
+  column_spec(2, width = "20em")
+
+rm(tablaFigura)
+```
+
+Estas variables juegan un papel extremadamente importante para el análisis oceanico. Un cambio significativo en cada una de estas variables nos da información extremadamente valiosa acerca de la salud del ecosistema. Es cierto que estamos omitiendo algunas variables que nos podrían pintar una escena más completa. Sin embargo, las variables que nosotros analizaremos nos cuentan acerca de cambios en el océano. Mientras que el resto de las variables categorizan cada uno de los ambientes, o bien terminan siendo redundantes; innecesarias para nuestro estudio. 
+

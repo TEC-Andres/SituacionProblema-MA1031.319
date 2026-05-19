@@ -1,7 +1,36 @@
-Los datos que estaremos utilizando se encuentran en la siguiente secuencia de datos
-```{r}
+Los datos que estaremos utilizando se encuentran en los datos crudos en el archivo de datosCalCOFI.csv. A continuación, mostraremos que tipo de datos son, la cabeza decada una de nuestras categorias y un resumen de nuestros datos. 
+```{r, echo=FALSE}
 datosCalCOFI <- read.csv("../data/raw/datosCalCOFI.csv")
-kable(head(datosCalCOFI, 10), caption="Datos de CalCOFI", format = "html") %>%
-  kable_styling() %>%
-  scroll_box(width = "100%", height = "500px")
+rawStrDatosCalCOFI <- capture.output(str(datosCalCOFI))
+summaryDatosCalCOFI <- summary(datosCalCOFI)
+
+rawStrDatosCalCOFI <- rawStrDatosCalCOFI[-1] # Remove the first line ('data.frame'...)
+rawStrDatosCalCOFI <- str_match(rawStrDatosCalCOFI, "\\$\\s*(\\w+)\\s*:\\s*(int|chr|num)\\s*(.*)")
+
+strdatosCalCOFI <- data.frame(
+  Variable = rawStrDatosCalCOFI[, 2],
+  Tipo     = rawStrDatosCalCOFI[, 3],
+  Cabeza   = rawStrDatosCalCOFI[, 4],
+  check.names = FALSE
+)
+
+kable(strdatosCalCOFI, 
+      caption = "Estructura del dataset de CalCOFI",
+      format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = TRUE) %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#2C3E50")
+
+
+kable(head(summaryDatosCalCOFI, 5), 
+      caption = "Resumen general de los datos por variable", 
+      digits = 3, 
+      format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center") %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#2C3E50") %>% 
+  scroll_box(width = "100%")
+
+
 ```

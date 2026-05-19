@@ -1,22 +1,25 @@
 ---
-title: "Evidencia 1 | "
-author: "Andres Rodriguez Cantu A01287002, ITC"
+title: "Evidencia 1 | Analisis Exploratorio de los datos"
+author: "Daniella Estela Sánchez Hernández A00845754, Andres Rodriguez Cantu A01287002, Isabella Anaís De la Garza Almazán A01663196"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 bibliography: src/references.bib
 csl: src/apa.csl
 link-citations: true
 knit: (function(input, encoding) rmarkdown::render(input, encoding = encoding, output_dir = "output", envir = new.env()))
+
+
 output:
-  html_document:
-    toc: true
-    toc_float: true
-    theme: journal
+ html_document:
+  toc: true
+  toc_float: true
+  theme: journal
 ---
 
 ```{r setup, include=FALSE}
 library(knitr)
 library(kableExtra)
 library(dplyr)
+library(stringr)
 library(tidyr)
 library(ggplot2)
 ```
@@ -38,8 +41,12 @@ if (nzchar(rmd_path)) {
 ```
 
 ## 2. Comprensión inicial del fenómeno y definición del objetivo de indagación
-```{r}
-
+```{r child='src/inciso2.rmd'}
 ```
+
+## 3. Selección y justificación de variables
+```{r child='src/inciso3.rmd'}
+```
+
 
 # Referencias
