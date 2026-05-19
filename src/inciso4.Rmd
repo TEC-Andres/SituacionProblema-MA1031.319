@@ -1,5 +1,6 @@
----
-title: "inciso4"
-output: html_document
----
+```{r echo=FALSE}
+# Seleccionar dependiendo a las columnas
+datosEqX <- datosCalCOFI %>%
+  select(mean_O2ml_L, mean_O2Sat, mean_T_degC, mean_Salnty, mean_ChlorA, Distance, Depth_zone, Water_density_class)
+```
 
