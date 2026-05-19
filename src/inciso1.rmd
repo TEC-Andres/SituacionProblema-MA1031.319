@@ -1,10 +1,13 @@
 Los datos que estaremos utilizando se encuentran en los datos crudos en el archivo de datosCalCOFI.csv. A continuación, mostraremos que tipo de datos son, la cabeza decada una de nuestras categorias y un resumen de nuestros datos. 
 ```{r, echo=FALSE}
 datosCalCOFI <- read.csv("../data/raw/datosCalCOFI.csv")
-rawStrDatosCalCOFI <- capture.output(str(datosCalCOFI))
+rawStrDatosCalCOFI  <- capture.output(str(datosCalCOFI))
+namesDatosCalCOFI   <- names(datosCalCOFI)
+dimDatosCalCOFI     <- dim(datosCalCOFI) 
 summaryDatosCalCOFI <- summary(datosCalCOFI)
 
-rawStrDatosCalCOFI <- rawStrDatosCalCOFI[-1] # Remove the first line ('data.frame'...)
+
+rawStrDatosCalCOFI <- rawStrDatosCalCOFI[-1] # quita la primera fila de observaciones
 rawStrDatosCalCOFI <- str_match(rawStrDatosCalCOFI, "\\$\\s*(\\w+)\\s*:\\s*(int|chr|num)\\s*(.*)")
 
 strdatosCalCOFI <- data.frame(
@@ -14,6 +17,7 @@ strdatosCalCOFI <- data.frame(
   check.names = FALSE
 )
 
+# str Datos
 kable(strdatosCalCOFI, 
       caption = "Estructura del dataset de CalCOFI",
       format = "html") %>%
@@ -21,7 +25,13 @@ kable(strdatosCalCOFI,
                 full_width = TRUE) %>%
   row_spec(0, bold = TRUE, color = "white", background = "#2C3E50")
 
+# dim datos
+dimDatosCalCOFI
 
+# name datos
+namesDatosCalCOFI
+
+# summary Datos
 kable(head(summaryDatosCalCOFI, 5), 
       caption = "Resumen general de los datos por variable", 
       digits = 3, 
@@ -34,3 +44,6 @@ kable(head(summaryDatosCalCOFI, 5),
 
 
 ```
+
+Con base en lo que se analizó y obtuvo después de correr exitosamente el programa de la figura 1, se pueden observar correctamente las características generales del contenido de la base de datos de CalCOFIi. Con el comando `dim(datoscalcofi)`, le pedimos al programa que nos enseñe las dimensiones del data frame, de las filas y las columnas de nuestra base de datos, en este caso son las observaciones y las variables. Lo que nos arrojó fue un valor de 28,421 observaciones y 21 variables de nuestro archivo cvs, obteniendo así un total de 596,841 valores. Esto también se puede comprobar con el comando `str(datos_calcofi)`, el cual enlista las variables con su tipo y nos da una muestra de los datos. Adicionalmente, agrega el “data.frame”, con el valor de filas y columnas.
+

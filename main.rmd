@@ -6,8 +6,6 @@ bibliography: src/references.bib
 csl: src/apa.csl
 link-citations: true
 knit: (function(input, encoding) rmarkdown::render(input, encoding = encoding, output_dir = "output", envir = new.env()))
-
-
 output:
  html_document:
   toc: true
@@ -19,8 +17,8 @@ output:
 library(knitr)
 library(kableExtra)
 library(dplyr)
-library(stringr)
 library(tidyr)
+library(stringr)
 library(ggplot2)
 ```
 
