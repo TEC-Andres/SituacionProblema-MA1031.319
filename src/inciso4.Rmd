@@ -1,4 +1,4 @@
-### 4.1. Obtener los datos de la base de datos
+### 4.1. Obtener los datos de la base de datos {#4.1}
 ```{r echo=FALSE}
 # Seleccionar dependiendo a las columnas
 datosEq1 <- datosCalCOFI %>%
@@ -17,13 +17,14 @@ if(!file.exists("../data/processed/datosEq1.csv")) {
 ```
 
 
-### 4.2. Análisis Numérico
-#### 4.2.1. Variable numérica por zona de profundidad
+### 4.2. Análisis Numérico {#4.2}
+#### 4.2.1. Variable numérica por zona de profundidad {#4.2.1}
 ```{r echo=FALSE}
 diseno <- matrix(c(1, 1, 2, 2,
                    0, 3, 3, 0), 
                  nrow = 2, byrow = TRUE)
-layout(diseno)
+
+graphics::layout(diseno)
 
 boxplot(mean_O2ml_L ~ Depth_zone, data = datosEq1,
         main = "Oxigeno disuelto por zona de profundidad",
@@ -46,16 +47,16 @@ boxplot(mean_ChlorA ~ Depth_zone, data = datosEq1,
         col = c("lightgreen", "lightblue", "lightpink", "gold"),
         horizontal = TRUE)
 
-layout(1)
+graphics::layout(1)
 ```
 
 
-#### 4.2.2 Variable numérica por clase de densidad del agua
-```{r}
+#### 4.2.2 Variable numérica por clase de densidad del agua {#4.2.2}
+```{r echo=FALSE}
 diseno <- matrix(c(1, 1, 2, 2,
                    0, 3, 3, 0), 
                  nrow = 2, byrow = TRUE)
-layout(diseno)
+graphics::layout(diseno)
 
 boxplot(mean_PO4uM ~ Water_density_class, data = datosEq1,
   main = "Fosfatos por clase de densidad del agua",
@@ -78,15 +79,15 @@ boxplot(mean_O2Sat ~ Water_density_class, data = datosEq1,
   col = c("lightblue", "lightgreen", "lightpink"),
   horizontal = TRUE)
 
-layout(1)
+graphics::layout(1)
 ```
 
-#### 4.2.3 Gráficos comparativos: variable cuantitativa vs cuantitativa
-```{r}
+#### 4.2.3 Gráficos comparativos: variable cuantitativa vs cuantitativa {#4.2.3}
+```{r echo=FALSE}
 diseno <- matrix(c(1, 1, 2, 2,
                    0, 3, 3, 0), 
                  nrow = 2, byrow = TRUE)
-layout(diseno)
+graphics::layout(diseno)
 
 plot(datosEq1$mean_T_degC, datosEq1$mean_O2ml_L,
      main = "Temperatura vs Oxigeno disuelto",
@@ -109,19 +110,32 @@ plot(datosEq1$mean_Salnty, datosEq1$mean_O2ml_L,
      col = "purple",
      pch=20)
 
-layout(1)
+graphics::layout(1)
 
 ```
 
-#### 4.2.4 Matriz de correlaciónes
-```{r}
+#### 4.2.4 Matriz de correlaciónes {#4.2.4}
+```{r echo=FALSE, warning=FALSE}
 variables_num <- datosEq1[, c("mean_O2ml_L", "mean_O2Sat", "mean_T_degC", "mean_Salnty", "mean_ChlorA", "mean_PO4uM")]
 correl <- cor(variables_num)
-round(correl, 3)
+
+kable(correl, 
+      caption = "Matriz de correlación de las variables de CalCOFI", 
+      digits = 3, 
+      format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center") %>%
+  row_spec(0, bold = TRUE, color = "white", background = "#2C3E50") %>% 
+  column_spec(1, bold = TRUE, color = "#2C3E50", background = "#F2F4F4")
+
+heatmaply_cor(correl)
+
+
 ```
 
-### 4.3. Analisis Gráfico
-#### 4.3.1.	Histogramas Variable cuantitativa 
+### 4.3. Analisis Gráfico {#4.3}
+#### 4.3.1.	Histogramas Variable cuantitativa {#4.3.1}
 ```{r echo=FALSE}
 par (mfrow = c(2,3))
 
@@ -169,7 +183,7 @@ hist(datosEq1$mean_PO4uM,
 
 ```
 
-#### 4.3.2.	Histogramas comparativos Depth zone (oxígeno y temperatura)
+#### 4.3.2.	Histogramas comparativos Depth zone (oxígeno y temperatura) {#4.3.2}
 ```{r echo=FALSE}
 categorias_depth <- unique(datosEq1$Depth_zone)
 n_depth <- length(categorias_depth)
@@ -188,7 +202,7 @@ for (i in 1:n_depth){
 }
 ```
 
-#### 4.3.3.	Histogramas comparativos Water density class (fosfatos y clorofila)
+#### 4.3.3.	Histogramas comparativos Water density class (fosfatos y clorofila) {#4.3.3}
 ```{r echo=FALSE}
 categorias_density <- unique(datosEq1$Water_density_class)
 n_density <- length(categorias_density) # Esto debería ser 3
@@ -218,7 +232,7 @@ for (i in 1:n_density) {
 }
 ```
 
-#### 4.3.4. Boxplots (UNIVARIABLES) Variable cuantitativa
+#### 4.3.4. Boxplots (UNIVARIABLES) Variable cuantitativa {#4.3.4}
 ```{r echo=FALSE}
 par(mfrow = c(2, 3))
 
@@ -253,7 +267,7 @@ boxplot(datosEq1$mean_PO4uM,
         col = "lightsalmon")
 ```
 
-#### 4.3.5. Boxplot (COMPARATIVOS) Depth zone
+#### 4.3.5. Boxplot (COMPARATIVOS) Depth zone {#4.3.5}
 ```{r echo=FALSE}
 par(mfrow = c(1, 3))
 
@@ -279,7 +293,7 @@ boxplot(mean_PO4uM ~ Depth_zone, data = datosEq1,
         horizontal = TRUE)
 ```
 
-#### 4.3.6.	Boxplots (COMPARATIVOS) Water density class
+#### 4.3.6.	Boxplots (COMPARATIVOS) Water density class {#4.3.6}
 ```{r echo=FALSE}
 par(mfrow = c(1, 3))
 
@@ -305,7 +319,7 @@ boxplot(mean_ChlorA ~ Water_density_class, data = datosEq1,
         horizontal = TRUE)
 ```
 
-#### 4.3.7.	Gráficos de dispersión Cuantitativa vs Cuantitativa
+#### 4.3.7.	Gráficos de dispersión Cuantitativa vs Cuantitativa {#4.3.7}
 ```{r echo=FALSE}
 par(mfrow = c(2, 2))
 
