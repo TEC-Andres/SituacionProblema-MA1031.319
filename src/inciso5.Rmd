@@ -17,3 +17,5 @@ A partir de nuestra interpretación, podemos confirmar el enunciado inicial de l
 
 - ¿En qué medida la disminución del oxígeno disuelto y de la clorofila-a en las zonas con mayor densidad de agua funciona como un indicador del deterioro o transformación drástica de un ecosistema marino específico?
 Usando estas preguntas, queremos encontrar respuestas acerca del origen de los datos. No necesariamente por una falta de validez, si no para ver cómo estas variables locales afectan a todo el ecosistema global; indagando no sólo en la rigidez de los datos, sino en plantear un origen de la problemática y con ello una posible solución.
+
+Usando estas preguntas, queremos encontrar respuestas acerca del origen de los datos. No necesariamente por una falta de validez, sino para ver cómo estas variables locales afectan a todo el ecosistema global; indagando no sólo en la rigidez de los datos, sino en plantear un origen de la problemática y con ello una posible solución.
