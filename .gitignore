@@ -4,8 +4,8 @@
 *.docx
 
 # Archivos cache
-.RData
-.Rhistory
-.Rproj.user/
-.rda
-.rds
+*.RData
+*.Rhistory
+*.Rproj.user/
+*.rda
+*data/processed/
