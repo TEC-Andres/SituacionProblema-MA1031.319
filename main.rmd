@@ -5,8 +5,7 @@ date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 bibliography: src/references.bib
 csl: src/apa.csl
 link-citations: true
-knit: (function(input, encoding) rmarkdown::render(input, encoding = encoding, output_dir = "output", envir = new.env()))
-
+knit: (function(input, encoding) rmarkdown::render(input, encoding = "UTF-8", output_dir = "output", envir = new.env()))
 
 output:
  html_document:
@@ -23,7 +22,9 @@ library(stringr)
 library(tidyr)
 library(ggplot2)
 
-library(stringi) # manejo de caracteres especiales
+library(graphics)
+library(heatmaply)      # Correlaciones
+library(stringi)        # manejo de caracteres especiales
 ```
 
 ```{r, include=FALSE}
@@ -38,7 +39,7 @@ if (nzchar(rmd_path)) {
 ```
 
 # PARTE I
-## 1. Las variables y datos t
+## 1. Las variables y datos
 ```{r child='src/inciso1.rmd'}
 ```
 
