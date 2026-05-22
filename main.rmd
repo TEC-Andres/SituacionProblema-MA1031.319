@@ -22,6 +22,8 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(ggplot2)
+
+library(stringi) # manejo de caracteres especiales
 ```
 
 ```{r, include=FALSE}
@@ -46,6 +48,14 @@ if (nzchar(rmd_path)) {
 
 ## 3. Selección y justificación de variables
 ```{r child='src/inciso3.rmd'}
+```
+
+## 4. Análisis Estadístico de los datos comparativo por región
+```{r child='src/inciso4.rmd'}
+```
+
+## 5. Interpretación de resultados en el contexto
+```{r child='src/inciso5.rmd'}
 ```
 
 
