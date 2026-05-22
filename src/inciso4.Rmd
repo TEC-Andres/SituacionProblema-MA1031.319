@@ -1,7 +1,343 @@
+### 4.1. Obtener los datos de la base de datos
 ```{r echo=FALSE}
 # Seleccionar dependiendo a las columnas
 datosEq1 <- datosCalCOFI %>%
   select(mean_O2ml_L, mean_O2Sat, mean_T_degC, mean_Salnty, mean_ChlorA, mean_PO4uM, Depth_zone, Water_density_class)
-write.csv(datosEq1, "../data/processed/datosEq1.csv")
+
+# array de colores
+colores_depth <- c("lightgreen", "lightblue", "lightpink", "gold")
+colores_density <- c("lightblue", "lightgreen", "lightpink")
+
+if(!file.exists("../data/processed/datosEq1.csv")) {
+  write.csv(datosEq1, "../data/processed/datosEq1.csv")
+  cat(sprintf("[ÉXITO]: Archivo creado con éxito en %s"), file())
+} else {
+  cat("[ADVERTENCIA]: El archivo ya existe")
+}
 ```
 
+
+### 4.2. Análisis Numérico
+#### 4.2.1. Variable numérica por zona de profundidad
+```{r echo=FALSE}
+diseno <- matrix(c(1, 1, 2, 2,
+                   0, 3, 3, 0), 
+                 nrow = 2, byrow = TRUE)
+layout(diseno)
+
+boxplot(mean_O2ml_L ~ Depth_zone, data = datosEq1,
+        main = "Oxigeno disuelto por zona de profundidad",
+        ylab = "Zona de profundidad",
+        xlab = "Oxigeno disuelto (mL/L)",
+        col = c("lightgreen", "lightblue", "lightpink", "gold"),
+        horizontal = TRUE)
+
+boxplot(mean_T_degC ~ Depth_zone, data = datosEq1,
+        main = "Temperatura por zona de profundidad",
+        ylab = "Zona de profundidad",
+        xlab = expression("Temperatura (" * degree * "C)"), 
+        col = c("lightgreen", "lightblue", "lightpink", "gold"),
+        horizontal = TRUE)
+
+boxplot(mean_ChlorA ~ Depth_zone, data = datosEq1,
+        main = "Clorofila-a por zona de profundidad",
+        ylab = "Zona de profundidad",
+        xlab = expression(paste("Clorofila-a (", mu, "g/L)")), 
+        col = c("lightgreen", "lightblue", "lightpink", "gold"),
+        horizontal = TRUE)
+
+layout(1)
+```
+
+
+#### 4.2.2 Variable numérica por clase de densidad del agua
+```{r}
+diseno <- matrix(c(1, 1, 2, 2,
+                   0, 3, 3, 0), 
+                 nrow = 2, byrow = TRUE)
+layout(diseno)
+
+boxplot(mean_PO4uM ~ Water_density_class, data = datosEq1,
+  main = "Fosfatos por clase de densidad del agua",
+  ylab = "Clase de densidad del agua",
+  xlab = expression(paste("Fosfatos (", mu,"mol/L)")),
+  col = c("lightblue", "lightgreen", "lightpink"),
+  horizontal = TRUE)
+
+boxplot(mean_O2ml_L ~ Water_density_class, data = datosEq1,
+  main = "Oxigeno disuelto por clase de densidad del agua",
+  ylab = "Clase de densidad del agua",
+  xlab = "Oxigeno (mL/L)",
+  col = c("lightblue", "lightgreen", "lightpink"),
+  horizontal = TRUE)
+
+boxplot(mean_O2Sat ~ Water_density_class, data = datosEq1,
+  main = "Saturacion de oxigeno por clase de densidad del agua",
+  ylab = "Clase de densidad del agua",
+  xlab = "Saturacion de oxigeno (%)",
+  col = c("lightblue", "lightgreen", "lightpink"),
+  horizontal = TRUE)
+
+layout(1)
+```
+
+#### 4.2.3 Gráficos comparativos: variable cuantitativa vs cuantitativa
+```{r}
+diseno <- matrix(c(1, 1, 2, 2,
+                   0, 3, 3, 0), 
+                 nrow = 2, byrow = TRUE)
+layout(diseno)
+
+plot(datosEq1$mean_T_degC, datosEq1$mean_O2ml_L,
+     main = "Temperatura vs Oxigeno disuelto",
+     xlab = expression("Temperatura ("*degree*"C)"),
+     ylab = "Oxigeno disuelto (mL/L)",
+     col = "steelblue",
+     pch=20)
+
+plot(datosEq1$mean_PO4uM, datosEq1$mean_ChlorA,
+     main = "Fosfatos vs Clorofila-a",
+     xlab = expression(paste("Fosfatos (",mu,"mol/L)")),
+     ylab = expression(paste("Clorofila-a (",mu,"g/L)")),
+     col = "darkgreen",
+     pch=20)
+
+plot(datosEq1$mean_Salnty, datosEq1$mean_O2ml_L,
+     main = "Salinidad vs Oxigeno disuelto",
+     xlab = "Salinidad (PSU)",
+     ylab = "Oxigeno disuelto (mL/L)",
+     col = "purple",
+     pch=20)
+
+layout(1)
+
+```
+
+#### 4.2.4 Matriz de correlaciónes
+```{r}
+variables_num <- datosEq1[, c("mean_O2ml_L", "mean_O2Sat", "mean_T_degC", "mean_Salnty", "mean_ChlorA", "mean_PO4uM")]
+correl <- cor(variables_num)
+round(correl, 3)
+```
+
+### 4.3. Analisis Gráfico
+#### 4.3.1.	Histogramas Variable cuantitativa 
+```{r echo=FALSE}
+par (mfrow = c(2,3))
+
+hist(datosEq1$mean_O2ml_L,
+     main="Oxígeno disuelto",
+     xlab="Oxígeno disuelto (mL/L)",
+     ylab= "Frecuencia",
+     col="lightblue",
+     border = "white")
+
+hist(datosEq1$mean_O2Sat,
+     main="Saturación de oxígeno",
+     xlab="Saturación de oxígeno (%)",
+     ylab= "Frecuencia",
+     col="lightgreen",
+     border = "white")
+
+hist(datosEq1$mean_T_degC,
+     main="Temperatura del agua",
+     xlab="Temperatura (ºC)",
+     ylab= "Frecuencia",
+     col="lightpink",
+     border = "white")
+
+hist(datosEq1$mean_Salnty,
+     main="Salinidad",
+     xlab="Salinidad (PSU)",
+     ylab= "Frecuencia",
+     col="lightyellow",
+     border = "white")
+
+hist(datosEq1$mean_ChlorA,
+     main="Clorofila-a",
+     xlab="Clorofila-a (µg/L)",
+     ylab= "Frecuencia",
+     col="lightgray",
+     border = "white")
+
+hist(datosEq1$mean_PO4uM,
+     main="Fosfatos",
+     xlab="Fosfatos  (µmol/L)",
+     ylab= "Frecuencia",
+     col="lightsalmon",
+     border = "white")
+
+```
+
+#### 4.3.2.	Histogramas comparativos Depth zone (oxígeno y temperatura)
+```{r echo=FALSE}
+categorias_depth <- unique(datosEq1$Depth_zone)
+n_depth <- length(categorias_depth)
+
+#Oxígeno disuelto por zona de profundidad
+par(mfrow = c(2,2))
+for (i in 1:n_depth){
+  x <- datosEq1$mean_O2ml_L[datosEq1$Depth_zone == categorias_depth [i]]
+  hist(x,
+       main = paste("Oxígeno disuelto <-\nZona:",
+                    categorias_depth[i]),
+       xlab="Temperatura (ºC)",
+       ylab = "Frecuencia",
+       col = colores_depth[i],
+       border = "white")
+}
+```
+
+#### 4.3.3.	Histogramas comparativos Water density class (fosfatos y clorofila)
+```{r echo=FALSE}
+categorias_density <- unique(datosEq1$Water_density_class)
+n_density <- length(categorias_density) # Esto debería ser 3
+
+par(mfrow = c(3, 2))
+
+# Bloque 1: Fosfatos
+for (i in 1:n_density) {
+  x <- datosEq1$mean_PO4uM[datosEq1$Water_density_class == categorias_density[i]]
+  hist(x,
+       main = paste("Fosfatos\nClase:", categorias_density[i]),
+       xlab = expression(paste("Fosfatos (", mu, "mol/L)")),
+       ylab = "Frecuencia",
+       col = colores_density[i],
+       border = "white")
+}
+
+# Bloque 2: Clorofila-a
+for (i in 1:n_density) {
+  x <- datosEq1$mean_ChlorA[datosEq1$Water_density_class == categorias_density[i]]
+  hist(x,
+       main = paste("Clorofila-a\nClase:", categorias_density[i]),
+       xlab = expression(paste("Clorofila-a (", mu, "g/L)")),
+       ylab = "Frecuencia",
+       col = colores_density[i],
+       border = "white")
+}
+```
+
+#### 4.3.4. Boxplots (UNIVARIABLES) Variable cuantitativa
+```{r echo=FALSE}
+par(mfrow = c(2, 3))
+
+boxplot(datosEq1$mean_O2ml_L,
+        main = "Oxígeno disuelto",
+        ylab = "Oxígeno disuelto (mL/L)",
+        col = "lightblue")
+
+boxplot(datosEq1$mean_O2Sat,
+        main = "Saturación de oxígeno",
+        ylab = "Saturación (%)",
+        col = "lightgreen")
+
+boxplot(datosEq1$mean_T_degC,
+        main = "Temperatura del agua",
+        ylab = "Temperatura (°C)",
+        col = "lightpink")
+
+boxplot(datosEq1$mean_Salnty,
+        main = "Salinidad",
+        ylab = "Salinidad (PSU)",
+        col = "lightyellow")
+
+boxplot(datosEq1$mean_ChlorA,
+        main = "Clorofila-a",
+        ylab = "Clorofila-a (µg/L)",
+        col = "lightgray")
+
+boxplot(datosEq1$mean_PO4uM,
+        main = "Fosfatos",
+        ylab = "Fosfatos (µmol/L)",
+        col = "lightsalmon")
+```
+
+#### 4.3.5. Boxplot (COMPARATIVOS) Depth zone
+```{r echo=FALSE}
+par(mfrow = c(1, 3))
+
+boxplot(mean_O2ml_L ~ Depth_zone, data = datosEq1,
+        main = "Oxígeno disuelto\npor zona de profundidad",
+        xlab  = "Oxígeno disuelto (mL/L)",
+        ylab  = "Zona de profundidad",
+        col   = colores_depth,
+        horizontal = TRUE)
+
+boxplot(mean_T_degC ~ Depth_zone, data = datosEq1,
+        main = "Temperatura\npor zona de profundidad",
+        xlab  = "Temperatura (°C)",
+        ylab  = "Zona de profundidad",
+        col   = colores_depth,
+        horizontal = TRUE)
+
+boxplot(mean_PO4uM ~ Depth_zone, data = datosEq1,
+        main = "Fosfatos\npor zona de profundidad",
+        xlab  = "Fosfatos (µmol/L)",
+        ylab  = "Zona de profundidad",
+        col   = colores_depth,
+        horizontal = TRUE)
+```
+
+#### 4.3.6.	Boxplots (COMPARATIVOS) Water density class
+```{r echo=FALSE}
+par(mfrow = c(1, 3))
+
+boxplot(mean_O2ml_L ~ Water_density_class, data = datosEq1,
+        main = "Oxígeno disuelto\npor clase de densidad",
+        xlab  = "Oxígeno disuelto (mL/L)",
+        ylab  = "Clase de densidad del agua",
+        col   = colores_density,
+        horizontal = TRUE)
+
+boxplot(mean_O2Sat ~ Water_density_class, data = datosEq1,
+        main = "Saturación de oxígeno\npor clase de densidad",
+        xlab  = "Saturación de oxígeno (%)",
+        ylab  = "Clase de densidad del agua",
+        col   = colores_density,
+        horizontal = TRUE)
+
+boxplot(mean_ChlorA ~ Water_density_class, data = datosEq1,
+        main = "Clorofila-a\npor clase de densidad",
+        xlab  = "Clorofila-a (µg/L)",
+        ylab  = "Clase de densidad del agua",
+        col   = colores_density,
+        horizontal = TRUE)
+```
+
+#### 4.3.7.	Gráficos de dispersión Cuantitativa vs Cuantitativa
+```{r echo=FALSE}
+par(mfrow = c(2, 2))
+
+#Temperatura vs Oxígeno disuelto
+plot(datosEq1$mean_T_degC, datosEq1$mean_O2ml_L,
+     main = "Temperatura vs Oxígeno disuelto",
+     xlab = "Temperatura (°C)",
+     ylab = "Oxígeno disuelto (mL/L)",
+     col  = "steelblue",
+     pch = 20)
+
+#Temperatura vs Clorofila-a
+plot(datosEq1$mean_T_degC, datosEq1$mean_ChlorA,
+     main = "Temperatura vs Clorofila-a",
+     xlab = "Temperatura (°C)",
+     ylab = "Clorofila-a (µg/L)",
+     col  = "darkgreen",
+     pch = 20)
+
+#Fosfatos vs Clorofila-a
+plot(datosEq1$mean_PO4uM, datosEq1$mean_ChlorA,
+     main = "Fosfatos vs Clorofila-a",
+     xlab = "Fosfatos (µmol/L)",
+     ylab = "Clorofila-a (µg/L)",
+     col  = "darkorange",
+     pch = 20)
+
+#Salinidad vs Oxígeno disuelto
+plot(datosEq1$mean_Salnty, datosEq1$mean_O2ml_L,
+     main = "Salinidad vs Oxígeno disuelto",
+     xlab = "Salinidad (PSU)",
+     ylab = "Oxígeno disuelto (mL/L)",
+     col  = "purple",
+     pch = 20)
+```

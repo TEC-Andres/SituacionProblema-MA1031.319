@@ -1,11 +1,10 @@
 Los datos que estaremos utilizando se encuentran en los datos crudos en el archivo de datosCalCOFI.csv. A continuación, mostraremos que tipo de datos son, la cabeza decada una de nuestras categorias y un resumen de nuestros datos. 
 ```{r, echo=FALSE}
-datosCalCOFI <- read.csv("../data/raw/datosCalCOFI.csv")
+datosCalCOFI        <- read.csv("../data/raw/datosCalCOFI.csv")
 rawStrDatosCalCOFI  <- capture.output(str(datosCalCOFI))
 namesDatosCalCOFI   <- names(datosCalCOFI)
 dimDatosCalCOFI     <- dim(datosCalCOFI) 
 summaryDatosCalCOFI <- summary(datosCalCOFI)
-
 
 rawStrDatosCalCOFI <- rawStrDatosCalCOFI[-1] # quita la primera fila de observaciones
 rawStrDatosCalCOFI <- str_match(rawStrDatosCalCOFI, "\\$\\s*(\\w+)\\s*:\\s*(int|chr|num)\\s*(.*)")
