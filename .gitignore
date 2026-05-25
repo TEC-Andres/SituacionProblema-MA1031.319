@@ -9,3 +9,18 @@
 *.Rproj.user/
 *.rda
 *data/processed/
+
+# TeX cache
+*.texbuildcache.json
+output/
+__pycache__/
+
+# TeX temp 
+*.aux
+*.bbl
+*.blg
+*.bfc
+*.log
+*.out
+*.run.xml
+*.toc
