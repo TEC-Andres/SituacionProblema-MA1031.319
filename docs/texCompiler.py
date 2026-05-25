@@ -282,6 +282,10 @@ _APA_PREAMBLE_BLOCK = (
     "% ── APA bibliography — auto-injected by texCompiler ────────────────\n"
     r"\usepackage[style=apa,backend=biber,natbib=true,sortcites=true]{biblatex}" + "\n"
     r"\DeclareLanguageMapping{american}{american-apa}" + "\n"
+    "% Ensure common title fields are emphasized (italics) — overrides CSL output\n"
+    r"\DeclareFieldFormat{title}{\textit{#1}}" + "\n"
+    r"\DeclareFieldFormat{booktitle}{\textit{#1}}" + "\n"
+    r"\DeclareFieldFormat{journaltitle}{\textit{#1}}" + "\n"
     "% ─────────────────────────────────────────────────────────────────────\n"
 )
 
@@ -582,6 +586,68 @@ class LatexProjectCompiler:
 
         return original, processed
 
+    def _prepare_bib_titles(self, tex_content: str) -> List[Tuple[Path, Path]]:
+        """
+        Find \addbibresource entries in *tex_content*, back up each referenced
+        .bib file, and wrap bare `title = {...}` values with
+        `{{\textit{...}}}` so titles are typeset in italics.
+
+        Returns a list of (bib_path, backup_path) for files modified so the
+        caller can restore them later.
+        """
+        bibs: List[Tuple[Path, Path]] = []
+        # Find \addbibresource{...} occurrences
+        for m in re.finditer(r'\\addbibresource\{([^}]+)\}', tex_content):
+            rel = m.group(1).strip()
+            bib_path = Path(rel) if Path(rel).is_absolute() else (self.project_dir / rel)
+            if not bib_path.exists():
+                # try common alternative: project has no bib but workspace src/bib
+                alt = Path(__file__).resolve().parent.parent / 'src' / 'bib' / bib_path.name
+                if alt.exists():
+                    bib_path = alt
+                else:
+                    continue
+
+            backup = bib_path.with_suffix(bib_path.suffix + '.bak')
+            try:
+                shutil.copy2(bib_path, backup)
+            except OSError:
+                continue
+
+            text = bib_path.read_text(encoding='utf-8', errors='replace')
+
+            # Replace title = { ... } occurrences unless they already contain \textit
+            def _repl(m: re.Match) -> str:
+                prefix = m.group(1)
+                openb = m.group(2)
+                content = m.group(3).strip()
+                closeb = m.group(4)
+                tail = m.group(5)
+                if '\\textit' in content or '\\mkbibemph' in content:
+                    return m.group(0)
+                # produce double-braced \textit wrapper: {{\textit{...}}}
+                return f"{prefix}{{{{\\textit{{{content}}}}}}}{tail}"
+
+            new_text, nsubs = re.subn(
+                r'(title\s*=\s*)(\{+)(.*?)(\}+)(\s*,)',
+                _repl,
+                text,
+                flags=re.IGNORECASE | re.DOTALL,
+            )
+
+            if nsubs:
+                try:
+                    bib_path.write_text(new_text, encoding='utf-8')
+                    bibs.append((bib_path, backup))
+                except OSError:
+                    # restore backup if write failed
+                    try:
+                        shutil.move(str(backup), str(bib_path))
+                    except OSError:
+                        pass
+
+        return bibs
+
     # ── compilation passes ────────────────────────────────────────────────────
 
     def _compile(self) -> Tuple[bool, str]:
@@ -700,6 +766,9 @@ class LatexProjectCompiler:
                 return False
             original_content, processed_content = transformed
 
+            # Prepare bibliography files: back them up and wrap title fields.
+            bib_backups: List[Tuple[Path, Path]] = self._prepare_bib_titles(processed_content)
+
             # Overwrite main .tex with preprocessed version (restored in finally)
             self.main_tex.write_text(processed_content, encoding="utf-8")
 
@@ -733,6 +802,13 @@ class LatexProjectCompiler:
             # Restore questions.tex
             if bak_questions.exists():
                 shutil.move(str(bak_questions), str(orig_questions))
+            # Restore any .bib backups we created
+            try:
+                for bib_path, backup_path in bib_backups:
+                    if backup_path.exists():
+                        shutil.move(str(backup_path), str(bib_path))
+            except Exception:
+                pass
 
         return success
 
