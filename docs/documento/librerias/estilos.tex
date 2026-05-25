@@ -1,0 +1,37 @@
+% Document appearance and typographic setup
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{a4paper, margin=0.8in}
+
+% Paragraph formatting
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+
+% Two-column layout: enabled manually from the document (do not auto-start)
+\setlength{\columnsep}{18pt}
+
+% Section/title styling: uppercase small-caps, centered, numbered like "1. INTRODUCTION"
+\usepackage{titlesec}
+\titleformat{\section}[block]{\normalfont\large\scshape\centering}{\thesection.}{1em}{}
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+% Run-in subsections (optional compact style)
+\titleformat{\subsection}[runin]{\normalfont\bfseries}{\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{6pt}{6pt}
+
+% Make figure/table captions slightly smaller
+\usepackage[font=small,labelfont=bf]{caption}
+
+% Improve line breaks and justification (keep default font hyphenation)
+
+% Keep floats reasonably close to text
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.07}
+
+% Optional: compact lists if used
+\usepackage{enumitem}
+\setlist{nosep}
+
+% End of estilos.tex

@@ -1,0 +1,19 @@
+% Comando de tab alineado con el formato APA (0.5 in)
+\newcommand{\tab}{\hspace{1.27cm}}
+
+% Comando para no tener que escribir el path de las imagenes cada vez, solo el nombre del archivo con su extensión.
+\graphicspath{{assets/jpg/}{assets/png/}{assets/svg/}{assets/}}
+\providecommand{\nat}[1]{#1}
+
+%
+\newcommand{\inicializarSeccion}[1]{
+    \section*{#1}
+    \phantomsection
+    \addcontentsline{toc}{subsection}{#1}
+}
+
+\newcommand{\inicializarSubseccion}[1]{
+    \subsection*{#1}
+    \phantomsection
+    \addcontentsline{toc}{subsubsection}{#1}
+}
