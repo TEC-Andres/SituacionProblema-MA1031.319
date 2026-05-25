@@ -1,0 +1,7 @@
+% Compila el documento al menos 2 veces para que el índice se actualice.
+% NOTA: Los contenidos (\section* / \subsection*) se agregan al índice en sus
+% respectivos archivos con \addcontentsline, para que cada entrada tenga el
+% número de página y el hipervínculo correctos.
+\phantomsection
+\addcontentsline{toc}{section}{\contentsname}
+\tableofcontents
