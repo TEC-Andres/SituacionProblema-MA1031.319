@@ -14,12 +14,13 @@
 *.texbuildcache.json
 output/
 __pycache__/
+__logs__/
 
 # TeX temp 
 *.aux
 *.bbl
 *.blg
-*.bfc
+*.bcf
 *.log
 *.out
 *.run.xml
