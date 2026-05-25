@@ -1,0 +1,65 @@
+\inicializarSeccion{Análisis exploratorio descriptivo}
+\begin{center}
+\rowcolors{2}{gray!15}{white}
+\begin{tabularx}{\textwidth}{l *{5}{>{\centering\arraybackslash}X}}
+\toprule
+\rowcolor[HTML]{2C3E50}
+\color{white}\textbf{Variable} & \color{white}\textbf{Media} & \color{white}\textbf{Mediana} & \color{white}\textbf{SD} & \color{white}\textbf{Mínimo} & \color{white}\textbf{Máximo} \\
+\midrule
+Oxígeno disuelto & 4.4760 & 5.3610 & 1.6225 & 0.4800 & 8.7358 \\
+Saturación de Oxígeno & 76.0237 & 90.5667 & 30.2426 & 7.3474 & 161.9333 \\
+Temperatura & 12.6376 & 12.7550 & 3.3861 & 4.5210 & 34.3220 \\
+Salinidad & 33.5049 & 33.5013 & 0.6863 & 24.4165 & 34.3696 \\
+Clorofila & 0.4837 & 0.1886 & 1.1050 & 0.0000 & 27.3078 \\
+Fosfatos & 1.0842 & 0.7340 & 0.8311 & 0.0525 & 3.5600 \\
+\bottomrule
+\end{tabularx}
+\captionof{table}{Estructura del dataset de CalCOFI}
+\end{center}
+
+\begin{multicols}{2}
+\tab La tabla Medidas de tendencia central y dispersión de variables oceanográficas presenta medidas de tendencia central y dispersión de las principales variables oceanográficas analizadas tras la base de datos de CalCOFI. Estas se utilizaron para resumir el comportamiento general de las variables para identificar patrones ambientales y diferencias entre condiciones oceánicas. La clorofila y fosfatos contienen mayor variabilidad y distribuciones asimétricas evidenciadas en figura FIGURA PARA ANEXO y figura FIGURA PARA ANEXO,  mientra que la temperatura y la salinidad presentan menor dispersión, indicando condiciones más estables. Esto nos indica disparidad entre regiones superficiales y profundas, así como diferencias en la disponibilidad de nutrientes dentro del ecosistema marino y productividad biológica.  
+
+\tab En el boxplot de oxígeno disuelto según la zona de profundidad se puede observar las diferencias de oxigenación entre aguas superficiales y profundas. Las zonas superficiales presentan las medianas más altas de oxígeno disuelto,  estas cercanas a 5.5-6 mL/L,  mientras que las zonas profundas tienen medianas menores, alrededor de 1.8 mL/L. Esto nos indica que las aguas profundas tienen menor disponibilidad de oxígeno, lo cual se puede relacionar con condiciones hipóxicas en ciertas regiones oceánicas. En contraste, las zonas superficiales muestran una mayor dispersión y variabilidad en los valores de oxígeno, probablemente debido a factores como la fotosíntesis y la temperatura.  
+
+...
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{\nat{parte1/0f01-temperaturaDelAguaSegunDepthZone}}
+    \caption{Boxplot de Temperatura según Depth Zone. (Propia Creación).}
+    \label{fig:0f01-temperaturaDelAguaSegunDepthZone}
+\end{figure}
+
+\tab La figura \ref{fig:0f01-temperaturaDelAguaSegunDepthZone} muestra las 4 medidas de la variable de temperatura promedio agrupadas por las cuatro zonas de la variable de profundidad. Aquí, se puede observar un cambio de temperatura descendente y consistente conforme aumenta la profundidad. La zona very shallow, registra la temperatura más alta con una mediana de 15.75ºC, como se puede observar por los datos de la Tabla NUMTABLATEMPS; y una media de 15.90ºC. Mientras que la deep zone muestra una mediana de apenas 8.01ºC y una media de 8.09ºC. Al restar estas dos medianas, obtenemos una temperatura de 7.74ºC, siendo esta la diferencia entre la zona very shallow y la deep. Esto representa una variación bastante grande que tiene implicaciones directas sobre la solubilidad del oxígeno, la densidad del agua y la distribución de organismos marinos.  
+
+\tab La dispersión sigue un patrón igualmente importante de recalcar. La zona deep es más homogénea, con una desviación estándar de tan solo 0.62ºC, con base a la Tabla NUMTABLATEMPS, lo que indica condiciones térmicas estables y predecibles en aguas profundas. Por el otro lado, la zona shallow presenta la mayor variabilidad, de 2.10ºC, y un valor máximo atípico de 34.32ºC. Esto podría estar asociado a altas temperaturas en la superficie o influencia costera. Las zonas very shallow e intermediate muestran variabilidades similares, 2.08ºC y 1.76ºC respectivamente. Esto tiene lógica, pues en estas capas no hay fluctuaciones grandes por factores externos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{\nat{parte1/0f02-temperaturaVSOxigenoDisuelto}}
+    \caption{Boxplot de Temperatura y oxígeno disuelto. (Propia Creación).}
+    \label{fig:0f02-temperaturaVSOxigenoDisuelto}
+\end{figure}
+
+\tab La figura \ref{fig:0f02-temperaturaVSOxigenoDisuelto} representa la relación positiva entre las variables de temperatura y oxígeno disuelto, con una concentración densa de puntos entre 5ºC y 20ºC. A temperaturas bajas (5-10ºC), el oxígeno presenta alta variabilidad, 1-6mL/L, indicando que las masas de agua profundas hipóxicas y las aguas de transición parcialmente oxigenadas coexisten. Entre los 10ºC y 20ºC, los datos se compactan y ascienden progresivamente, mostrando que las aguas más cálidas tienden a estar mejor oxigenadas por efecto de la fotosíntesis activa del fitoplancton superficial. A temperaturas superiores de 20ºC, los datos son menores y el oxígeno comienza a descender ligeramente, pues hay una menor solubilidad del gas en agua caliente.  
+
+\tab Este comportamiento muestra los datos de la Tabla \ref{tab:0f03-matrizCorrelacion}, que reporta un coeficiente de correlación de r= 0.847 entre el promedio de temperatura y el promedio de oxígeno disuelto, indicando una asociación positiva fuerte. Esta relación se explica porque ambas variables responden al mismo factor de profundidad. Las aguas superficiales son más cálidas y más oxigenadas por la entrada de luz solar y por la actividad fotosintética, mientras que las aguas profundas son frías y con poco oxígeno por no estar en la superficie.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{\nat{parte1/0f03-matrizCorrelacion}}
+    \caption{Matriz de correlación. (Propia Creación).}
+    \label{fig:0f03-matrizCorrelacion}
+\end{figure}
+
+\tab La figura \ref{fig:0f03-matrizCorrelacion}, muestra tres correlaciones relevantes para nuestro objetivo de investigación. La primera es la correlación negativa entre las variables de saturación promedio de oxígeno y fosfatos promedio (r=-0.989). Seguida de las variables de oxígeno disuelto promedio y fosfatos promedio (r=-0.977). Estas dos primeras relaciones son muy altas, indicando que los fosfatos y el oxígeno se comportan igual inversamente; cuando suben los fosfatos, baja el oxígeno. Esto refleja el ciclo del océano, pues en aguas profundas la materia orgánica se descompone consumiendo oxígeno y liberando nutrientes, mientras que en la superficie la fotosíntesis consume nutrientes y produce oxígeno.
+
+\tab La correlación entre la temperatura promedio y los fosfatos promedio (r=-0.921) refuerza la conclusión, pues las aguas frías profundas acumulan fosfatos, mientras que las cálidas superficiales los agotan por consumo de oxígeno. Finalmente, la correlación débil entre el promedio de salinidad y el promedio de clorofila (r=-0.061) indica que el crecimiento del fitoplanctón no depende de la composición salina del agua.  
+
+\tab En conjunto, estos patrones indican que la profundidad actuando a través de la temperatura, estructura tanto la disponibilidad de oxígeno como la concentración de nutrientes en el Pacífico californiano, con implicaciones directas para los ecosistemas marinos y las pesquerías que dependen de la productividad de la zona eufótica.  
+
+
+
+\end{multicols}
+
