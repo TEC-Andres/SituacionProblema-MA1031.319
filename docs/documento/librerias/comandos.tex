@@ -18,10 +18,31 @@
     \addcontentsline{toc}{subsubsection}{#1}
 }
 
-% Nombres en español para referencias automáticas de figuras, tablas, secciones y ecuaciones.
-% \autoref{name}
 \renewcommand{\figureautorefname}{Figura}
 \renewcommand{\tableautorefname}{Tabla}
-\renewcommand{\sectionautorefname}{Sección}
+\renewcommand{\sectionautorefname}{Anexo}
+
+\newcounter{anexo}
+\setcounter{anexo}{0}
+
+\makeatletter
+\newcommand{\anexofigurecaption}[1]{%
+    \refstepcounter{anexo}% incrementa y establece \@currentlabel provisional
+    \protected@xdef\@currentlabel{Anexo \theanexo}% global
+    \begingroup
+    \captionsetup{labelformat=empty}% suprime "Figura N:" automático
+    \captionof{figure}{\textbf{Anexo \theanexo:} #1}% texto de caption
+    \endgroup
+}
+
+\newcommand{\anexotablecaption}[1]{%
+    \refstepcounter{anexo}% incrementa y establece \@currentlabel provisional
+    \protected@xdef\@currentlabel{Anexo \theanexo}% global
+    \begingroup
+    \captionsetup{labelformat=empty}% suprime "Tabla N:" automático
+    \captionof{table}{\textbf{Anexo \theanexo:} #1}% texto de caption
+    \endgroup
+}
+\makeatother
 \renewcommand{\equationautorefname}{Ecuación}
 \usepackage{cancel}
