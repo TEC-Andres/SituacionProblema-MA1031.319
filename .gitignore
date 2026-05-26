@@ -15,6 +15,7 @@
 output/
 __pycache__/
 __logs__/
+__finalResults/
 
 # TeX temp 
 *.aux
