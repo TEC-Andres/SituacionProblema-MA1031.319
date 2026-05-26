@@ -1,4 +1,5 @@
 \inicializarSeccion{Anexos}
+% Usar numeración automática de anexos (no harcodeada)
 \begin{center}
 \rowcolors{2}{gray!15}{white}
 \begin{tabularx}{\textwidth}{l *{6}{>{\centering\arraybackslash}X}}
@@ -14,41 +15,33 @@ Clorofila & 0.295 & 0.274 & 0.138 & -0.061 & 1 & -0.219 \\
 Fosfatos & -0.977 & -0.989 & -0.921 & 0.399 & -0.219 & 1 \\
 \bottomrule
 \end{tabularx}
-\captionof{table}{Matriz de correlación entre variables cuantitativas del dataset de CalCOFI}
-\label{tab:0f05-anexo}
+\anexotablecaption{Matriz de correlación entre variables cuantitativas del dataset de CalCOFI}
+\label{sec:0f05-tablaDeVariables}
 \end{center}
 
-\begin{figure}[H]
+\begin{appendices}
     \centering
-    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f04-anexo}}
-    \caption{Tabla temperatura vs depth. (Propia Creación).}
-    \label{fig:0f04-anexo}
-\end{figure}
-
-\begin{figure}[H]
+    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f04-oxigenoDisueltoSegunProfundidad}}
+    \anexofigurecaption{Tabla temperatura vs depth. (Propia Creación).}
+    \label{sec:0f04-oxigenoDisueltoSegunProfundidad}
+    
     \centering
-    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f05-anexo2}}
-    \caption{Tabla de variables. (Propia Creación).}
-    \label{fig:0f05-anexo}
-\end{figure}
-
-\begin{figure}[H]
+    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f05-tablaDeVariables}}
+    \anexofigurecaption{Tabla de variables. (Propia Creación).}
+    \label{sec:0f05-tablaDeVariables}
+    
     \centering
-    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f06-anexo3}}
-    \caption{Figura de oxigeno vs variables. (Propia Creación).}
-    \label{fig:0f06-anexo}
-\end{figure}
-
-\begin{figure}[H]
+    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f06-figurasDeOxigenos}}
+    \anexofigurecaption{Figura de oxigeno vs variables. (Propia Creación).}
+    \label{sec:0f06-figurasDeOxigenos}
+    
     \centering
-    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f07-anexo4}}
-    \caption{Boxplot depth zone. (Propia Creación).}
-    \label{fig:0f07-anexo}
-\end{figure}
-
-\begin{figure}[H]
+    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f07-oxigenoDisueltoSegunProfundidad}}
+    \anexofigurecaption{Boxplot depth zone. (Propia Creación).}
+    \label{sec:0f07-oxigenoDisueltoSegunProfundidad}
+    
     \centering
-    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f08-anexo5}}
-    \caption{Histogramas comparativos. (Propia Creación).}
-    \label{fig:0f08-anexo}
-\end{figure}
+    \includegraphics[width=0.5\linewidth]{\nat{parte1/0f08-fosfatosYClorofila}}
+    \anexofigurecaption{Histogramas comparativos. (Propia Creación).}
+    \label{sec:0f08-fosfatosYClorofila}
+\end{appendices}
