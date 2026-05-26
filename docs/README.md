@@ -1,6 +1,9 @@
 # Document compilation script
 This repository contains a Python script (`texCompiler.py`) that automates the compilation
 
+## Special ruleset
+- Always use `\autoref` for cross-references except when placing appendices. In that case use `\ref`.
+
 ## Requirements
 - [Python](https://www.python.org/downloads/) 3.8 or superior
 - [TexWorks](https://tug.org/texworks/) or any $\LaTeX$ editor
