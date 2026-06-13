@@ -1,0 +1,13 @@
+### 7.1 Profundidad del agua y el nivel de oxígeno disuelto
+
+```{r echo=FALSE}
+datosEq1$O2_cat <- ifelse(datosEq1$mean_O2ml_L >= 5, "Adecuado", "Bajo")
+chisq.test(table(datosEq1$Depth_zone, datosEq1$O2_cat))
+```
+
+### 7.2 Zona de profundidad y la clase de densidad del agua
+
+```{r echo=FALSE}
+prueba <- chisq.test(table(datosEq1$Depth_zone, datosEq1$Water_density_class))
+print(prueba)
+```
