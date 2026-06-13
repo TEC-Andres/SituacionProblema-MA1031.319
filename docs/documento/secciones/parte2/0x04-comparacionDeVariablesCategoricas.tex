@@ -1,0 +1,29 @@
+\inicializarSeccion{Comparación de Variables Categóricas}
+
+Con base a lo anterior, realizaremos una comparación entre las variables categóricas para identificar posibles diferencias significativas entre los grupos. Utilizaremos pruebas de independencia para evaluar si existen asociaciones significativas entre las variables.
+
+Para la primera hipótesis, se había planteado que el nivel promedio de oxígeno disuelto en nuestra región es mayor al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L). Podemos asociar esta hipótesis con la profundidad del agua debido a que existe una alta correlación entre la profundidad y el nivel de oxígeno disuelto. 
+
+Planteamos la prueba de independencia para evaluar si existe una asociación significativa entre la profundidad del agua y el nivel de oxígeno disuelto y obtenemos el siguiente resultado:
+
+\begin{verbatim}
+	Pearson's Chi-squared test
+
+data:  table(datosEq1$Depth_zone, 
+datosEq1$O2_cat)
+X-squared = 15820, df = 3, p-value < 2.2e-16
+\end{verbatim}
+
+Lo cual indica que existe una asociación significativa entre la profundidad del agua y el nivel de oxígeno disuelto.
+
+Para nuestra segunda hipótesis, se plantea que existe una asociación entre la zona de profundidad y la clase de densidad del agua. Planteamos la prueba de independencia y obtenemos el siguiente resultado:
+
+\begin{verbatim}
+	Pearson's Chi-squared test
+
+data:  table(datosEq1$Depth_zone,
+ datosEq1$Water_density_class)
+X-squared = 13402, df = 6, p-value < 2.2e-16
+\end{verbatim}
+
+Lo cual indica que existe una asociación significativa entre la profundidad del agua y la densidad del agua.

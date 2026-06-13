@@ -1,0 +1,161 @@
+## 6.1 Planteamiento de preguntas
+Ya tenemos nuestra variable y nuestras preguntas definidas. Sin embargo, con estas preguntas realmente no podemos hacer análisis estadistico. Debido a que estas solo se limitan a describir un predicado; hay que reformularlas para que puedan ser analizadas con métodos estadísticos inferenciales.
+
+¿El nivel promedio de oxígeno disuelto en nuestra región cumple con el umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L) necesario para mantener mantener la salud del ecosistema?
+
+¿De qué manera las variaciones e incrementos en la temperatura y la salinidad del agua están alterando significativamente los niveles de oxígeno disuelto (meanO2ml_L), y cómo pone este déficit en riesgo el equilibrio de la biodiversidad marina?
+
+¿Existe una relación significativa entre los niveles de oxígeno disuelto (mean_O2ml_L}) y la biodiversidad marina en nuestra región?
+
+## 6.2 Planteamiento de hipótesis de la primera pregunta
+
+$H_0$: El nivel promedio de oxígeno disuelto en nuestra región es menor o igual al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L).
+
+$H_1$: El nivel promedio de oxígeno disuelto en nuestra región es mayor al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L).
+
+```{r echo=FALSE}
+# Prueba t de Student de una cola: H0: mu <= 5 vs H1: mu > 5
+oxigeno <- datosEq1$mean_O2ml_L
+mu_0    <- 5
+alpha   <- 0.05
+
+prueba <- t.test(oxigeno, alternative = "greater", mu = mu_0, conf.level = 1 - alpha)
+
+t_obs   <- prueba$statistic
+gl      <- prueba$parameter
+t_crit  <- qt(1 - alpha, df = gl)
+p_valor <- prueba$p.value
+
+lim_sup <- max(abs(t_obs), abs(t_crit)) + 0.5
+x_vals <- seq(-lim_sup, lim_sup, length.out = 300)
+y_vals <- dt(x_vals, df = gl)
+plot(x_vals, y_vals, type = "l", lwd = 3, xlab = "t (desviaciones estándar lejos de μ)", yaxt = "n", ylab = "",
+     main = "Prueba t unilateral: ¿El oxígeno promedio supera los 5 ml/L?", ylim = c(-0.023, max(y_vals) * 1.1))
+abline(h = 0)
+legend("topleft", c("Regla de decisión", "Análisis de la muestra"), fill = c("red", "blue"), cex = 0.8)
+
+zf <- t_crit
+zD <- t_obs
+
+# Regla de decisión
+abline(v = zf, col = "red", lty = 3, lwd = 1.5)
+abline(v = -zf, col = "red", lty = 3, lwd = 1.5)
+text(zf, -0.02, round(zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+text(-zf, -0.02, round(-zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+
+abline(v = zD, col = "blue", lty = 3, lwd = 1.5)
+text(zD, -0.02, round(zD, 2), cex = 0.8, col = "blue", xpd = TRUE)
+
+if (p_valor < alpha) {
+  cat("Se rechaza H0: el nivel promedio de oxígeno disuelto es mayor a 5 ml/L")
+} else {
+  cat("No se rechaza H0: no hay evidencia suficiente para concluir que el promedio supera 5 ml/L")
+}
+```
+
+## 6.3 Planteamiento de hipótesis de la segunda pregunta
+
+$H_0$: Las variaciones en temperatura y salinidad no alteran significativamente los niveles de oxígeno disuelto ($\beta_{Temp} = 0$ y $\beta_{Sal} = 0$).
+
+$H_1$: Al menos una de las variables (temperatura o salinidad) altera significativamente los niveles de oxígeno disuelto ($\beta_{Temp} \neq 0$ o $\beta_{Sal} \neq 0$).
+
+```{r echo=FALSE}
+# Regresión lineal múltiple: H0: b_Temp = 0 y b_Sal = 0 vs H1: Al menos un b != 0
+modelo    <- lm(mean_O2ml_L ~ mean_T_degC + mean_Salnty, data = datosEq1)
+resumen   <- summary(modelo)
+alpha     <- 0.05
+
+# Prueba F global
+f_stat    <- resumen$fstatistic
+f_pval    <- pf(f_stat[1], f_stat[2], f_stat[3], lower.tail = FALSE)
+
+# Coeficientes individuales
+coef_temp <- resumen$coefficients["mean_T_degC", ]
+coef_sal  <- resumen$coefficients["mean_Salnty", ]
+
+t_obs     <- coef_temp[3]
+gl        <- modelo$df.residual
+t_crit    <- qt(1 - alpha / 2, df = gl)
+
+lim_sup   <- max(abs(t_obs), abs(t_crit)) + 0.5
+x_vals    <- seq(-lim_sup, lim_sup, length.out = 300)
+y_vals    <- dt(x_vals, df = gl)
+
+plot(x_vals, y_vals, type = "l", lwd = 3, xlab = "t (desviaciones estándar lejos de μ)", yaxt = "n", ylab = "",
+     main = "Prueba de Hipótesis: Alteración del oxígeno \n disuelto con salinidad y temperatura", ylim = c(-0.023, max(y_vals) * 1.1))
+abline(h = 0)
+legend("topleft", c("Regla de decisión", "Análisis de la muestra"), fill = c("red", "blue"), cex = 0.8)
+
+zf        <- t_crit
+zD        <- t_obs
+
+# Regla de decisión
+abline(v = zf, col = "red", lty = 3, lwd = 1.5)
+abline(v = -zf, col = "red", lty = 3, lwd = 1.5)
+text(zf, -0.02, round(zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+text(-zf, -0.02, round(-zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+
+abline(v = zD, col = "blue", lty = 3, lwd = 1.5)
+text(zD, -0.02, round(zD, 2), cex = 0.8, col = "blue", xpd = TRUE)
+
+if (f_pval < alpha) {
+  cat(sprintf("Prueba F global: Se rechaza H0 (p = %.4f). Al menos una variable afecta significativamente el oxígeno disuelto.\n", f_pval))
+} else {
+  cat(sprintf("Prueba F global: No se rechaza H0 (p = %.4f). Las variaciones no alteran significativamente los niveles de oxígeno.\n", f_pval))
+}
+
+if (abs(t_obs) > t_crit) {
+  cat(sprintf("Temperatura: Se rechaza H0 (t = %.2f, p = %.4f). La temperatura afecta significativamente el oxígeno disuelto.\n", t_obs, coef_temp[4]))
+} else {
+  cat(sprintf("Temperatura: No se rechaza H0 (t = %.2f, p = %.4f). No hay evidencia de efecto significativo de la temperatura.\n", t_obs, coef_temp[4]))
+}
+
+if (abs(coef_sal[3]) > t_crit) {
+  cat(sprintf("Salinidad: Se rechaza H0 (t = %.2f, p = %.4f). La salinidad afecta significativamente el oxígeno disuelto.\n", coef_sal[3], coef_sal[4]))
+} else {
+  cat(sprintf("Salinidad: No se rechaza H0 (t = %.2f, p = %.4f). No hay evidencia de efecto significativo de la salinidad.\n", coef_sal[3], coef_sal[4]))
+}
+```
+
+## 6.4 Planteamiento de hipótesis de la tercera pregunta
+
+$H_0$: No existe una relación lineal significativa entre el oxígeno disuelto y la clorofila-a ($\rho = 0$).
+
+$H_1$: Si existe una relación lineal significativa entre el oxígeno disuelto y la clorofila-a ($\rho \neq 0$).
+
+```{r echo=FALSE}
+alpha <- 0.05
+
+prueba <- cor.test(datosEq1$mean_O2ml_L, datosEq1$mean_ChlorA, method = "pearson")
+
+t_obs   <- prueba$statistic
+gl      <- prueba$parameter
+t_crit  <- qt(1 - alpha / 2, df = gl)
+p_valor <- prueba$p.value
+r_est   <- prueba$estimate
+
+lim_sup <- max(abs(t_obs), abs(t_crit)) + 0.5
+x_vals <- seq(-lim_sup, lim_sup, length.out = 300)
+y_vals <- dt(x_vals, df = gl)
+plot(x_vals, y_vals, type = "l", lwd = 3, xlab = "t (desviaciones estándar lejos de μ)", yaxt = "n", ylab = "",
+     main = "Prueba t bilateral: ¿Oxígeno y clorofila-a están correlacionados?", ylim = c(-0.023, max(y_vals) * 1.1))
+abline(h = 0)
+legend("topleft", c("Regla de decisión", "Análisis de la muestra"), fill = c("red", "blue"), cex = 0.8)
+
+zf <- t_crit
+zD <- t_obs
+
+abline(v = zf, col = "red", lty = 3, lwd = 1.5)
+abline(v = -zf, col = "red", lty = 3, lwd = 1.5)
+text(zf, -0.02, round(zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+text(-zf, -0.02, round(-zf, 2), col = "red", cex = 0.7, xpd = TRUE)
+
+abline(v = zD, col = "blue", lty = 3, lwd = 1.5)
+text(zD, -0.02, round(zD, 2), cex = 0.8, col = "blue", xpd = TRUE)
+
+if (p_valor < alpha) {
+  cat(sprintf("Se rechaza H0: NO existe correlación significativa (r = %.3f, p = %.4f)", r_est, p_valor))
+} else {
+  cat(sprintf("No se rechaza H0: hay correlación significativa (r = %.3f, p = %.4f)", r_est, p_valor))
+}
+```

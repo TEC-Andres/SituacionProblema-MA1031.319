@@ -2,8 +2,10 @@
 title: "Evidencia 1 | Analisis Exploratorio de los datos"
 author: "Daniella Estela Sánchez Hernández A00845754, Andres Rodriguez Cantu A01287002, Isabella Anaís De la Garza Almazán A01663196"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
-bibliography: src/references.bib
-csl: src/apa.csl
+bibliography: src/bib/references.bib
+csl: src/bib/apa.csl
+nocite: |
+  @calcofi_bottle, @calcofi_conference, @calcofi_main, @tec_diccionario, @calcofi_history, @calcofi_stations, @sanderson_2024_missing_values
 link-citations: true
 knit: (function(input, encoding) rmarkdown::render(input, encoding = "UTF-8", output_dir = "output", envir = new.env()))
 
@@ -59,5 +61,17 @@ if (nzchar(rmd_path)) {
 ```{r child='src/inciso5.rmd'}
 ```
 
+## PARTE II
+## 6. Interpretación y resolución de hipótesis
+```{r child='src/inciso6.rmd'}
+```
+
+## 7. Comparación de variables categóricas
+```{r child='src/inciso7.rmd'}
+```
+
+## 8. Intervalos de confianza 
+```{r child='src/inciso8.rmd'}
+```
 
 # Referencias

@@ -1,0 +1,38 @@
+\inicializarSeccion{Pruebas de Hipótesis}
+
+En esta sección se plantearán las hipótesis relacionadas con las preguntas de analisis diferencial propuestas en el inciso anterior. Para esto, nos apoyaremos de la prueba de T de Student para comparar medias y evaluar si existen diferencias significativas entre los grupos. 
+
+Para la resolución de la primera pregunta, se plantea la siguiente hipótesis:
+
+\begin{itemize}
+    \item $H_0$: El nivel promedio de oxígeno disuelto en nuestra región es menor o igual al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L).
+    \item $H_1$: El nivel promedio de oxígeno disuelto en nuestra región es mayor al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L).
+\end{itemize}
+
+Evaluando esta hipótesis, nos encontramos un resultado espeluznante y aterrador al mismo tiempo. Con nuestros datos, pudimos observar que el nivel promedio de oxígeno disuelto en nuestra región es significativamente mayor al umbral mínimo óptimo establecido por las normativas ambientales (5 ml/L). Tal y como se puede observar en la siguiente figura:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{parte2/pruebaDeHipotesis1.png}
+    \caption{Prueba de hipótesis para el nivel promedio de oxígeno disuelto}
+    \label{fig:pruebaDeHipotesis1}
+\end{figure}
+
+Como podemos observar, la $t$ es extremadamente baja. Esto es debido a la manera en la que estamos realizando nuestro análisis estadístico. Estamos agarrando una gran cantidad de población y de espacios que son significativamente distintos entre sí. Es por eso que la prueba de hipótesis nos da un resultado tan extremo. Gracias a este resultado, es fácil ver que, en efecto, con completa seguridad, podemos rechazar la hipótesis nula $H_0$ y aceptar la hipótesis alternativa $H_1$.
+
+Pasando a la segunda pregunta, planteamos la siguiente hipótesis:
+
+\begin{itemize}
+    \item $H_0$: Las variaciones en temperatura y salinidad no alteran significativamente los niveles de oxígeno disuelto ($\beta_{Temp} = 0$ y $\beta_{Sal} = 0$).
+    \item $H_1$: Al menos una de las variables (temperatura o salinidad) altera significativamente los niveles de oxígeno disuelto ($\beta_{Temp} \neq 0$ o $\beta_{Sal} \neq 0$).
+\end{itemize}
+
+De igual manera que la pregunta anterior, a la hora de realizar la prueba de hipótesis, observamos que los coeficientes de temperatura y salinidad son significativamente diferentes de cero, lo que indica que al menos una de estas variables tiene un impacto significativo en los niveles de oxígeno disuelto. Por lo tanto, rechazamos la hipótesis nula $H_0$ y aceptamos la hipótesis alternativa $H_1$. Tal y como se puede observar en \autoref{fig:pruebaDeHipotesis2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{parte2/pruebaDeHipotesis2.png}
+    \caption{Prueba de hipótesis para la relación entre temperatura, salinidad y oxígeno disuelto}
+    \label{fig:pruebaDeHipotesis2}
+\end{figure}
+

@@ -4,8 +4,25 @@
 *.docx
 
 # Archivos cache
-.RData
-.Rhistory
-.Rproj.user/
-.rda
-.rds
+*.RData
+*.Rhistory
+*.Rproj.user/
+*.rda
+*data/processed/
+
+# TeX cache
+*.texbuildcache.json
+output/
+__pycache__/
+__logs__/
+__finalResults/
+
+# TeX temp 
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.log
+*.out
+*.run.xml
+*.toc

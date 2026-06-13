@@ -50,6 +50,7 @@ boxplot(mean_ChlorA ~ Depth_zone, data = datosEq1,
 graphics::layout(1)
 ```
 
+El las figuras de la seccion [4.2.1](#4.2.1). Se observan diferencias entre las cuatro categorías. Las zonas very shallow presentan una distribución simétrica, con la mayor concentración de valores entre 14°C y 18°C. Conforme aumenta la profundidad, la distribución se mueve hacia temperaturas menores. La zona Deep tiene la mayoría de sus valores entre 7°C y 10°C, donde podemos ver una disminución progresiva de temperatura con la profundidad debido a la menor cantidad de radiación solar que llega aesas zonas. 
 
 #### 4.2.2 Variable numérica por clase de densidad del agua {#4.2.2}
 ```{r echo=FALSE}
@@ -81,6 +82,8 @@ boxplot(mean_O2Sat ~ Water_density_class, data = datosEq1,
 
 graphics::layout(1)
 ```
+
+La figuras de la sección [4.2.2](#4.2.2), nos evidencia como el oxígeno disuelto tiene un comportamiento diverso entre zonas. Las regiones Very shallow y Shallow cuentan con valores cercanos a 5-6 mL/L, mostrando distribuciones compactas. Por otro lado, las zonas Intermediate y Deep presentan una reducción, concentrando la mayoría de sus valores entre 1 y 4 mL/L. Podemos inferir que esto pasa debido a la disminución del oxígeno cuando va aumentando la profundidad, donde hay menor actividad fotosintética y menor ventilación oceánica.
 
 #### 4.2.3 Gráficos comparativos: variable cuantitativa vs cuantitativa {#4.2.3}
 ```{r echo=FALSE}
@@ -114,6 +117,9 @@ graphics::layout(1)
 
 ```
 
+En las figuras de la sección [4.2.3](#4.2.3), se refleja que la concentración de clorofila presenta distribuciones sesgadas hacia la derecha. La mayor parte de los valores se concentran alrededor de cero, aunque las zonas superficiales de Very Shallow y Shallow dan valores elevados, lo que se puede asociar a regiones de alta productividad fitoplanctónica. Conforme aumenta la profundidad, la frecuencia y la magnitud de concentraciones altas de clorofila disminuye gracias a la menor disponibilidad de luz solar.
+
+
 #### 4.2.4 Matriz de correlaciónes {#4.2.4}
 ```{r echo=FALSE, warning=FALSE}
 variables_num <- datosEq1[, c("mean_O2ml_L", "mean_O2Sat", "mean_T_degC", "mean_Salnty", "mean_ChlorA", "mean_PO4uM")]
@@ -130,9 +136,11 @@ kable(correl,
   column_spec(1, bold = TRUE, color = "#2C3E50", background = "#F2F4F4")
 
 heatmaply_cor(correl)
-
-
 ```
+
+
+En la tabla y figura de la sección [4.2.4](#4.2.4).  Es fácil de ver que algunas variables contienen más relación que otras. En la tabla, encontramos que la cantidad de mililitros de oxígeno por litro de agua está directamente correlacionado a la saturación de oxígeno. Una correlación que no esperábamos ver fue la correlación negativa entre el fosfato y la cantidad de oxígeno en el mar, uno esperaría que en los océanos se encontraría hasta el fondo acumulados de fosfato. Sin embargo, los datos indican lo contrario. Una última correlación que se nos hizo interesante fue la correlación entre la cantidad de oxígeno y la temperatura del agua. Con estos datos, parecería que no tendría nada que ver, pero tiene todo el sentido del mundo ya que mientras más profundo en el océano te encuentras, el ambiente se hace más frío y hay menos oxígeno. En la tabla, también hay variables que aparentan ser independientes completamente de las variables que habíamos escogido. El ejemplo más claro lo podemos encontrar con la cantidad de clorofila-a que el ambiente posee. Nos sorprendió encontrar esta observación ya que la clorofila-a es parte fundamental de la cadena alimenticia.
+
 
 ### 4.3. Analisis Gráfico {#4.3}
 #### 4.3.1.	Histogramas Variable cuantitativa {#4.3.1}
@@ -293,6 +301,11 @@ boxplot(mean_PO4uM ~ Depth_zone, data = datosEq1,
         horizontal = TRUE)
 ```
 
+La distribución de los fosfatos cambia dependiendo de las distintas zonas de profundidad. En las zonas de shallow y very shallow, los histogramas muestran concentraciones bajas de fosfatos, mientras que en zonas como Deep, las concentraciones aumentan y su distribución se vuelve asimétrica y amplia.  
+La desviación estándar de los fosfatos fue de aproximadamente 0.83, lo que indica una diferencia en esta variable química oceánica. Mientras que los silicatos presentaron una desviación mucho más grande, de 17.46, mostrando una gran diferencia en aguas profundas.  
+Varios histogramas muestran una forma asimétrica, esto hace coincidir con las diferencias entre la mediana y el rango intercuartil observados en la tabla descriptiva. Por ejemplo, la mediana de los silicatos fue de 6.52, mientras que el tercer cuartil fue de 24.92, indicando una distribución asimétrica hacia observaciones extremas.  
+
+
 #### 4.3.6.	Boxplots (COMPARATIVOS) Water density class {#4.3.6}
 ```{r echo=FALSE}
 par(mfrow = c(1, 3))
@@ -318,6 +331,11 @@ boxplot(mean_ChlorA ~ Water_density_class, data = datosEq1,
         col   = colores_density,
         horizontal = TRUE)
 ```
+
+En algunos diagramas de caja y bigote se puede observar como hay una diferencia entre las zonas de profundidad, la temperatura va disminuyendo mientras aumenta la profundidad, mientras que fosfatos y silicatos aumentan en zonas profundas.  
+En varios boxplots se pueden observar valores atípicos o extremos, esto se puede deber a zonas oceánicas con acumulación de nutrientes o grandes procesos biológicos, por lo que pueden ser ambientalmente relevantes.  
+La mediana dentro de las cajas puede indicar asimetría en diferentes variables. En silicatos y fosfatos, la mediana se encuentra más cerca al cuartil inferior, y los bigotes superiores al ser más largos, coinciden con la forma parcial que se puede observar en los histogramas. Esto demuestra que en ciertas regiones oceánicas existen algunos grupos de datos concentrados en valores bajos con concentraciones muy altas.  
+
 
 #### 4.3.7.	Gráficos de dispersión Cuantitativa vs Cuantitativa {#4.3.7}
 ```{r echo=FALSE}
